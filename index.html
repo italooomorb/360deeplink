@@ -22,29 +22,25 @@
     <script>
         function tentarAbrirApp() {
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            var urlParams = new URLSearchParams(window.location.search);
+            var idProduto = urlParams.get('id') || '0';
             
-            // Variáveis de Loja corrigidas
             var androidStoreUrl = "https://play.google.com/store/apps/details?id=app.red360";
             var iosStoreUrl = "https://apps.apple.com/br/app/seu-app/id123456789"; // Troque pelo seu ID da Apple
             var siteUrl = "https://www.dimensiva.com.br";
 
-            // Se for ANDROID, usamos a técnica mágica do Intent
             if (/android/i.test(userAgent)) {
-                // O formato Intent do Android (Ele mesmo tenta abrir o app, ou joga pra loja automaticamente)
-                var intentUrl = "intent://biblioteca/123#Intent;scheme=red360;package=app.red360;end;";
+                var intentUrl = "intent://biblioteca/" + idProduto + "#Intent;scheme=red360;package=app.red360;end;";
                 window.location.href = intentUrl;
             } 
-            // Se for iOS (iPhone/iPad), usamos o esquema normal
             else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                var iosAppUrl = "meuapp://pagamento/123";
+                var iosAppUrl = "meuapp://biblioteca/"+ idProduto;
                 window.location.href = iosAppUrl;
                 
-                // O cronômetro agora roda APENAS para iOS (já que o Intent do Android resolve sozinho)
                 setTimeout(function() {
                     window.location.replace(iosStoreUrl);
                 }, 2000);
             } 
-            // Se for Computador/Desktop
             else {
                 window.location.replace(siteUrl);
             }
