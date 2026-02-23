@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RED360</title>
+</head>
+<body>
+    <h2 style="text-align: center; margin-top: 50px; font-family: sans-serif;">
+        Abrindo o aplicativo...
+    </h2>
+    <p style="text-align: center; font-family: sans-serif;">
+        Se você não for redirecionado, vamos te levar para a loja.
+    </p>
+
+    <script>
+        // 1. Defina as URLs
+        // O link que o app escuta
+        var appUrl = "red360://biblioteca"; 
+        
+        // Os links das suas lojas
+        var androidStoreUrl = "https://play.google.com/store/apps/details?id=app.red360";
+        var iosStoreUrl = "https://apps.apple.com/br/app/seu-app/id123456789";
+
+        // 2. Tenta abrir o aplicativo
+        window.location.replace(appUrl);
+
+        // 3. Configura o cronômetro para ir para a loja se o app não abrir
+        setTimeout(function() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Detecta se é Android
+            if (/android/i.test(userAgent)) {
+                window.location.replace(androidStoreUrl);
+            } 
+            // Detecta se é iOS (iPhone/iPad)
+            else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                window.location.replace(iosStoreUrl);
+            } 
+            // Se for computador (opcional), vai para a home do seu site
+            else {
+                window.location.replace("https://www.dimensiva.com.br");
+            }
+        }, 2000); // 2000 milissegundos = 2 segundos
+    </script>
+</body>
+</html>
