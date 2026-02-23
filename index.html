@@ -21,24 +21,19 @@
 
     <script>
         function tentarAbrirApp() {
-            var appUrl = "red360://biblioteca"; 
+            // O link do seu app
+            var appUrl = "meuapp://pagamento/123"; 
             
-            var storeUrl = "https://play.google.com/store/apps/details?id=app.red360";
+            // O link da loja (coloque o link real aqui)
+            var storeUrl = "https://play.google.com/store/apps/details?id=com.suaempresa.seuapp";
 
+            // 1. Dispara a tentativa de abrir o app
             window.location.href = appUrl;
 
+            // 2. Inicia o cronômetro para ir para a loja caso o app não abra
             setTimeout(function() {
-                var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-                if (/android/i.test(userAgent)) {
-                    window.location.replace(androidStoreUrl);
-                } 
-                else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                    window.location.replace(iosStoreUrl);
-                } 
-                else {
-                    window.location.replace("https://www.dimensiva.com.br");
-                }
-            }, 2000);
+                window.location.href = storeUrl;
+            }, 2000); // 2 segundos
         }
     </script>
 </body>
